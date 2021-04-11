@@ -35,12 +35,24 @@ extension Responder where Base : UIResponder {
             handler($0.get())
         }
     }
+    
+    public func register<Key: ResponderKeyType, Value>(typeKey: Key, handler: @escaping (Value) -> Bool) where Key.Value == Value {
+        let key = AnyHashable(typeKey)
+        _initResponderHandlers()
+        self.responderHandlers?[key] = {
+            handler($0.get())
+        }
+    }
 }
 
 
 extension Responder where Base : UIResponder {
     public func handler<Key: Hashable, Value>(key: Key, value: Value) {
         _handler(responder: self.base.next, key: key, value: value)
+    }
+    
+    public func handler<Key: ResponderKeyType, Value>(typeKey: Key, value: Value) where Key.Value == Value {
+        _handler(responder: self.base.next, key: typeKey, value: value)
     }
     
     private func _handler<Key: Hashable, Value>(responder: UIResponder?, key: Key, value: Value) {
