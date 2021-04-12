@@ -41,17 +41,17 @@ subView.addSubview(subSubView)
 
 ```swift
 
-rootView.responder.register(key: key123) { (value: String) -> Bool in
+rootView.responder.register(key: “123”) { (value: String) -> Bool in
     XCTAssertEqual(value, "123")
     return false
 }
 
-subView.responder.register(key: key123) { (value: String) -> Bool in
+subView.responder.register(key: ”123) { (value: String) -> Bool in
     XCTAssertEqual(value, "123")
     return true
 }
 
-subSubView.responder.handler(key: key123, value: "123")
+subSubView.responder.handler(key: “123”, value: "123")
 ```
 
 ### type-safe
