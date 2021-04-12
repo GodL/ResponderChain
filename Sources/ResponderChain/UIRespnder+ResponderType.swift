@@ -28,6 +28,11 @@ extension Responder where Base : UIResponder {
 }
 
 extension Responder where Base : UIResponder {
+    
+    /// Registers a handler for the current responder.
+    /// - Parameters:
+    ///   - key: Event key, which identifies a handler
+    ///   - handler: The callback corresponding to the event,The return value represents whether to proceed to the next responder. `YES` means proceed to the next responder.
     public func register<Key: Hashable, Value>(key: Key, handler: @escaping (Value) -> Bool) {
         let key = AnyHashable(key)
         _initResponderHandlers()
@@ -36,6 +41,10 @@ extension Responder where Base : UIResponder {
         }
     }
     
+    /// Register a handler for the current responder in a type-safe manner.
+    /// - Parameters:
+    ///   - typeKey: Event key, which identifies a handler,Contains a generic parameter
+    ///   - handler: The callback corresponding to the event,The return value represents whether to proceed to the next responder. `YES` means proceed to the next responder.
     public func register<Key: ResponderKeyType, Value>(typeKey: Key, handler: @escaping (Value) -> Bool) where Key.Value == Value {
         let key = AnyHashable(typeKey)
         _initResponderHandlers()
@@ -47,10 +56,19 @@ extension Responder where Base : UIResponder {
 
 
 extension Responder where Base : UIResponder {
+    
+    /// Send an event
+    /// - Parameters:
+    ///   - key: Event key, which identifies a handler
+    ///   - value: The parameters passed by the event
     public func handler<Key: Hashable, Value>(key: Key, value: Value) {
         _handler(responder: self.base.next, key: key, value: value)
     }
     
+    /// Send an event in a type-safe manner.
+    /// - Parameters:
+    ///   - typeKey: Event key, which identifies a handler,Contains a generic parameter
+    ///   - value: The parameters passed by the event
     public func handler<Key: ResponderKeyType, Value>(typeKey: Key, value: Value) where Key.Value == Value {
         _handler(responder: self.base.next, key: typeKey, value: value)
     }
