@@ -15,7 +15,7 @@ To integrate `ResponderChain` into your project using SPM, specify it in your `P
 let package = Package(
     …
     dependencies: [
-        .package(url: "https://github.com/GodL/ResponderChain.git", from: "1.0.0"),
+        .package(url: "https://github.com/GodL/ResponderChain.git", from: "1.0.1"),
     ],
     targets: [
         .target(name: "YourTarget", dependencies: ["ResponderChain", …])
@@ -41,17 +41,17 @@ subView.addSubview(subSubView)
 
 ```swift
 
-rootView.responder.register(key: “123”) { (value: String) -> Bool in
+rootView.rsp.register(key: “123”) { (value: String) -> Bool in
     XCTAssertEqual(value, "123")
     return false
 }
 
-subView.responder.register(key: ”123) { (value: String) -> Bool in
+subView.rsp.register(key: ”123) { (value: String) -> Bool in
     XCTAssertEqual(value, "123")
     return true
 }
 
-subSubView.responder.handler(key: “123”, value: "123")
+subSubView.rsp.handler(key: “123”, value: "123")
 ```
 
 ### type-safe
@@ -60,17 +60,17 @@ subSubView.responder.handler(key: “123”, value: "123")
 
 var key123: ResponderKey<String> = ResponderKey(value: "123")
 
-rootView.responder.register(typeKey: key123) { (value: String) -> Bool in
+rootView.rsp.register(typeKey: key123) { (value: String) -> Bool in
     XCTAssertEqual(value, "123")
     return false
 }
 
-subView.responder.register(typeKey: key123) { (value: String) -> Bool in
+subView.rsp.register(typeKey: key123) { (value: String) -> Bool in
     XCTAssertEqual(value, "123")
     return true
 }
 
-subSubView.responder.handler(typeKey: key123, value: "123")
+subSubView.rsp.handler(typeKey: key123, value: "123")
 ```
 ## Author
 

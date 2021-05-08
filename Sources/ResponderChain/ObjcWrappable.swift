@@ -7,11 +7,11 @@
 import UIKit
 
 extension UIResponder {
-    @objc public func responder_register(key: String, handler: @escaping (Any) -> Bool) {
-        self.responder.register(key: key, handler: handler)
+    @objc public func rsp_register(key: String, handler: @escaping (Any) -> Bool) {
+        self.rsp.register(key: key, handler: handler)
     }
     
-    @objc public func responder_handler(key: String, value: Any) {
-        self.responder.handler(key: key, value: value)
+    @objc public func rsp_handler(key: String, value: Any) {
+        self.rsp.handler(key: key, value: value)
     }
 }

@@ -74,7 +74,7 @@ extension Responder where Base : UIResponder {
     }
     
     private func _handler<Key: Hashable, Value>(responder: UIResponder?, key: Key, value: Value) {
-        if let responder = responder, let handlers = responder.responder.responderHandlers {
+        if let responder = responder, let handlers = responder.rsp.responderHandlers {
             if let handler = handlers[key], handler(ResponderValue(value)) {
                 _handler(responder: responder.next, key: key, value: value)
             }

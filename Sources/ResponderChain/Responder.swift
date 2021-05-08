@@ -18,11 +18,11 @@ public struct Responder<Base> {
 public protocol ResponderWrappable {
     associatedtype WrapperValue
     
-    var responder: Responder<WrapperValue> { get }
+    var rsp: Responder<WrapperValue> { get }
 }
 
 extension ResponderWrappable {
-    public var responder: Responder<Self> {
+    public var rsp: Responder<Self> {
         Responder(self)
     }
 }

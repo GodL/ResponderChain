@@ -2,7 +2,7 @@ import XCTest
 import UIKit
 @testable import ResponderChain
 
-var key123: ResponderKey<String> = ResponderKey(value: "123")
+var key123: AnyResponderKey<String> = AnyResponderKey(key: "123")
 
 final class ResponderChainTests: XCTestCase {
     func testExample() {
@@ -16,17 +16,17 @@ final class ResponderChainTests: XCTestCase {
         rootView.addSubview(subView)
         subView.addSubview(subSubView)
         
-        rootView.responder.register(key: key123) { (value: String) -> Bool in
-            XCTAssertEqual(value, "123")
+        rootView.rsp.register(key: key123) { (value: String) -> Bool in
+            print(value)
             return false
         }
         
-        subView.responder.register(key: key123) { (value: String) -> Bool in
-            XCTAssertEqual(value, "123")
+        subView.rsp.register(key: key123) { (value: String) -> Bool in
+            print(value)
             return true
         }
         
-        subSubView.responder.handler(typeKey: key123, value: "123")
+        subSubView.rsp.handler(typeKey: key123, value: "123")
     }
 
     static var allTests = [
