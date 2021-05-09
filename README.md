@@ -7,6 +7,7 @@ Usually a delegate or block is used to pass events between a `ViewController` an
 
 ## Installation
 
+### Swift Package Manager
 [Swift Package Manager](https://swift.org/package-manager/) is Apple's decentralized dependency manager to integrate libraries to your Swift projects. It is now fully integrated with Xcode 11
 
 To integrate `ResponderChain` into your project using SPM, specify it in your `Package.swift` file:
@@ -15,13 +16,19 @@ To integrate `ResponderChain` into your project using SPM, specify it in your `P
 let package = Package(
     …
     dependencies: [
-        .package(url: "https://github.com/GodL/ResponderChain.git", from: "1.0.1"),
+        .package(url: "https://github.com/GodL/ResponderChain.git", from: "1.0.2"),
     ],
     targets: [
         .target(name: "YourTarget", dependencies: ["ResponderChain", …])
         …
     ]
 )
+```
+
+### Cocoapods
+
+``` ruby
+pod 'ResponderChain', '~> 1.0.2'
 ```
 
 ## Usage
