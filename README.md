@@ -28,7 +28,7 @@ let package = Package(
 ### Cocoapods
 
 ``` ruby
-pod 'ResponderChain', '~> 1.0.2'
+pod 'GLResponderChain', '~> 1.0.3'
 ```
 
 ## Usage

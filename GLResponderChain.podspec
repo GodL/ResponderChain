@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
-  s.name             = "ResponderChain"
-  s.version          = "1.0.2"
+  s.name             = "GLResponderChain"
+  s.version          = "1.0.3"
   s.license          = { :type => "MIT" }
   s.homepage         = "https://github.com/GodL/ResponderChain"
   s.author           = { "GodL" => "547188371@qq.com" }
