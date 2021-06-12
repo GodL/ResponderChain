@@ -16,7 +16,7 @@ To integrate `ResponderChain` into your project using SPM, specify it in your `P
 let package = Package(
     …
     dependencies: [
-        .package(url: "https://github.com/GodL/ResponderChain.git", from: "1.0.5"),
+        .package(url: "https://github.com/GodL/ResponderChain.git", from: "1.0.6"),
     ],
     targets: [
         .target(name: "YourTarget", dependencies: ["ResponderChain", …])
@@ -28,7 +28,7 @@ let package = Package(
 ### Cocoapods
 
 ``` ruby
-pod 'GLResponderChain', '~> 1.0.5'
+pod 'GLResponderChain', '~> 1.0.6'
 ```
 
 ## Usage

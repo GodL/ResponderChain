@@ -9,12 +9,11 @@ public protocol ResponderKeyType : Hashable {
     associatedtype Value
 }
 
-public struct AnyResponderKey<Key: Hashable> : ResponderKeyType {
-    public typealias Value = Key
+public struct AnyResponderKey<Value> : ResponderKeyType {
     
-    let key: Key
+    let key: AnyHashable
     
-    public init(key: Key) {
-        self.key = key
+    public init<Key: Hashable>(key: Key) {
+        self.key = AnyHashable(key)
     }
 }

@@ -2,7 +2,7 @@ import XCTest
 import UIKit
 @testable import ResponderChain
 
-var key123: AnyResponderKey<String> = AnyResponderKey(key: "123")
+var key123: AnyResponderKey<String> = AnyResponderKey(key: 1)
 
 final class ResponderChainTests: XCTestCase {
     func testExample() {
