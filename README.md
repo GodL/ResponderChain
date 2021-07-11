@@ -16,7 +16,7 @@ To integrate `ResponderChain` into your project using SPM, specify it in your `P
 let package = Package(
     …
     dependencies: [
-        .package(url: "https://github.com/GodL/ResponderChain.git", from: "1.0.6"),
+        .package(url: "https://github.com/GodL/ResponderChain.git", from: "2.0.0"),
     ],
     targets: [
         .target(name: "YourTarget", dependencies: ["ResponderChain", …])
@@ -28,7 +28,7 @@ let package = Package(
 ### Cocoapods
 
 ``` ruby
-pod 'GLResponderChain', '~> 1.0.6'
+pod 'GLResponderChain', '~> 2.0.0'
 ```
 
 ## Usage
@@ -78,6 +78,23 @@ subView.rsp.register(typeKey: key123) { (value: String) -> Bool in
 }
 
 subSubView.rsp.handler(typeKey: key123, value: "123")
+```
+
+### NextType
+
+Starting from `ResponderChain` 2.0.0, event delivery supports any object that complies with the `NextType` protocol (`UIResresponder` complies by default with the `NextType` protocol)
+
+```swift
+class NextTest: NextType {
+    var next: UIView?
+}
+
+extension NextTest : ResponderWrappable {}
+
+let nextTest = NextTest()
+nextTest.next = rootView
+nextTest.rsp.handler(typeKey: key123, value: "nextTest call")
+
 ```
 ## Author
 

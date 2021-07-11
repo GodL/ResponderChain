@@ -4,7 +4,16 @@ import UIKit
 
 var key123: AnyResponderKey<String> = AnyResponderKey(key: 1)
 
+class NextTest: NextType {
+    var next: UIView?
+}
+
+extension NextTest : ResponderWrappable {}
+
+
 final class ResponderChainTests: XCTestCase {
+    
+    
     func testExample() {
         
         let rootView = UIView()
@@ -26,10 +35,16 @@ final class ResponderChainTests: XCTestCase {
             return true
         }
         
-        subSubView.rsp.handler(typeKey: key123, value: "123")
+        let nextTest = NextTest()
+        nextTest.next = rootView
+        
+        subSubView.rsp.handler(typeKey: key123, value: "subsubView call")
+        nextTest.rsp.handler(typeKey: key123, value: "nextTest call")
+        
     }
 
     static var allTests = [
         ("testExample", testExample),
     ]
 }
+

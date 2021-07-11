@@ -9,13 +9,13 @@ import UIKit
 
 private var key: String = ""
 
-extension Responder where Base : UIResponder {
+extension NextType {
     fileprivate var responderHandlers: [AnyHashable : (ResponderValue) -> Bool]? {
         nonmutating set {
-            objc_setAssociatedObject(self.base, &key, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &key, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get {
-            guard let handlers = objc_getAssociatedObject(self.base, &key) as? [AnyHashable : (ResponderValue) -> Bool] else { return nil }
+            guard let handlers = objc_getAssociatedObject(self, &key) as? [AnyHashable : (ResponderValue) -> Bool] else { return nil }
             return handlers
         }
     }
@@ -27,7 +27,7 @@ extension Responder where Base : UIResponder {
     }
 }
 
-extension Responder where Base : UIResponder {
+extension Responder where Base : NextType {
     
     /// Registers a handler for the current responder.
     /// - Parameters:
@@ -35,8 +35,8 @@ extension Responder where Base : UIResponder {
     ///   - handler: The callback corresponding to the event,The return value represents whether to proceed to the next responder. `YES` means proceed to the next responder.
     public func register<Key: Hashable, Value>(key: Key, handler: @escaping (Value) -> Bool) {
         let key = AnyHashable(key)
-        _initResponderHandlers()
-        self.responderHandlers?[key] = {
+        self.base._initResponderHandlers()
+        self.base.responderHandlers?[key] = {
             handler($0.get())
         }
     }
@@ -47,15 +47,15 @@ extension Responder where Base : UIResponder {
     ///   - handler: The callback corresponding to the event,The return value represents whether to proceed to the next responder. `YES` means proceed to the next responder.
     public func register<Key: ResponderKeyType, Value>(typeKey: Key, handler: @escaping (Value) -> Bool) where Key.Value == Value {
         let key = AnyHashable(typeKey)
-        _initResponderHandlers()
-        self.responderHandlers?[key] = {
+        self.base._initResponderHandlers()
+        self.base.responderHandlers?[key] = {
             handler($0.get())
         }
     }
 }
 
 
-extension Responder where Base : UIResponder {
+extension Responder where Base : NextType {
     
     /// Send an event
     /// - Parameters:
@@ -73,9 +73,9 @@ extension Responder where Base : UIResponder {
         _handler(responder: self.base.next, key: typeKey, value: value)
     }
     
-    private func _handler<Key: Hashable, Value>(responder: UIResponder?, key: Key, value: Value) {
+    private func _handler<Key: Hashable, Value, Next: NextType>(responder: Next?, key: Key, value: Value) {
         if let responder = responder {
-            if let handlers = responder.rsp.responderHandlers {
+            if let handlers = responder.responderHandlers {
                 if let handler = handlers[key] {
                     if handler(ResponderValue(value)) {
                         _handler(responder: responder.next, key: key, value: value)
