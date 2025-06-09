@@ -7,7 +7,8 @@
 
 import UIKit
 
-private var key: String = ""
+@MainActor
+private var key: UInt8 = 0
 
 extension NextType {
     fileprivate var responderHandlers: [AnyHashable : (ResponderValue) -> Bool]? {
@@ -27,6 +28,7 @@ extension NextType {
     }
 }
 
+@MainActor
 extension Responder where Base : NextType {
     
     /// Registers a handler for the current responder.
@@ -54,7 +56,7 @@ extension Responder where Base : NextType {
     }
 }
 
-
+@MainActor
 extension Responder where Base : NextType {
     
     /// Send an event
