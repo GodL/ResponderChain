@@ -11,8 +11,25 @@ public protocol NextType : Sendable {
     
     var next: Next? { get }
 }
-
+#if os(iOS)
 import UIKit.UIResponder
 
-extension UIResponder: @retroactive Sendable {}
-extension UIResponder : NextType {}
+public typealias Responder = UIResponder
+
+#elseif os(macOS)
+import AppKit.NSResponder
+
+public typealias Responder = NSResponder
+
+#endif
+
+extension Responder : @retroactive Sendable {}
+extension Responder : NextType {
+    #if os(macOS)
+    @inlinable
+    @inline(__always)
+    public var next: Responder? {
+        nextResponder
+    }
+    #endif
+}

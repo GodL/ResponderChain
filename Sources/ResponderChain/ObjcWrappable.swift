@@ -4,10 +4,11 @@
 //
 //  Created by GodL on 2021/4/11.
 //
-import UIKit
 
-extension UIResponder {
-    @objc public func rsp_register(key: String, handler: @escaping (Any) -> Bool) {
+import Foundation
+
+extension Responder {
+    @objc public func rsp_register(key: String, handler: sending @MainActor @escaping (Any) -> Bool) {
         self.rsp.register(key: key, handler: handler)
     }
     

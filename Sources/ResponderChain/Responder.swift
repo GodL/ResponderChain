@@ -5,9 +5,7 @@
 //  Created by GodL on 2021/4/4.
 //
 
-import UIKit
-
-public struct Responder<Base> {
+public struct ResponderChain<Base> {
     let base: Base
     
     public init(_ base: Base) {
@@ -18,14 +16,14 @@ public struct Responder<Base> {
 public protocol ResponderWrappable {
     associatedtype WrapperValue
     
-    var rsp: Responder<WrapperValue> { get }
+    var rsp: ResponderChain<WrapperValue> { get }
 }
 
 extension ResponderWrappable {
-    public var rsp: Responder<Self> {
-        Responder(self)
+    public var rsp: ResponderChain<Self> {
+        ResponderChain(self)
     }
 }
 
-extension UIResponder: ResponderWrappable {}
+extension Responder: ResponderWrappable {}
 
